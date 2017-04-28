@@ -14,10 +14,10 @@ class GeneratorDelegateFactory
 
     /**
      * Array of generators that are aggregates of other generators
-     * 
+     *
      * @var array
      */
-    public static $aggregate_generators = ['resource', 'scaffold'];
+    public static $aggregate_generators = ['resource', 'scaffold', 'crud'];
 
     protected $configFactory;
 
@@ -38,7 +38,7 @@ class GeneratorDelegateFactory
      * Primary method to make a generator delegate, finds
      * the architecture required and calls a subsequent
      * method to handle the details.
-     * 
+     *
      * @param  GenerateCommand          $cmd            cli command that was run
      * @param  array                    $args           cmmand arguments
      * @param  \Console\OptionReader    $optionReader   command options
@@ -65,9 +65,9 @@ class GeneratorDelegateFactory
 
 
     /**
-     * Function to handle the generation of hexagonal 
+     * Function to handle the generation of hexagonal
      * architecture generator delegates
-     * 
+     *
      * @param  GenerateCommand          $cmd             [description]
      * @param  array                    $args            [description]
      * @param  \Console\OptionReader    $optionReader    [description]
@@ -97,7 +97,7 @@ class GeneratorDelegateFactory
                 $optionReader
             );
         }
-        
+
 
         return $delegate;
     }

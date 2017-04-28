@@ -13,14 +13,14 @@ class ConfigReader implements ConfigReaderInterface
     /**
      * Filesystem object for interacting
      * with files and directories
-     * 
+     *
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $filesystem;
 
     /**
      * Var to hold the parsed configuration
-     * 
+     *
      * @var array
      */
     protected $config = null;
@@ -28,7 +28,7 @@ class ConfigReader implements ConfigReaderInterface
     /**
      * Var holding the path to the directory
      * where the config file exists
-     * 
+     *
      * @var string
      */
     protected $configDir;
@@ -64,19 +64,20 @@ class ConfigReader implements ConfigReaderInterface
     const CONFIG_AGG_KEY_SCAFFOLD      = 'scaffold';
 
     /**
-     * Types of configs that this 
+     * Types of configs that this
      * reader will support
-     * 
+     *
      * @var array
      */
     protected $config_types = [
-        "hexagonal"
+        "hexagonal",
+        "crud",
     ];
 
     /**
      * Config keys required for the hexagonal
      * config type
-     * 
+     *
      * @var array
      */
     protected $hexagonal_config_keys = [
@@ -102,10 +103,25 @@ class ConfigReader implements ConfigReaderInterface
         "db_repository"
     ];
 
+    protected $crud_config_keys = [
+        'model',
+        'controller',
+        'seed',
+        'migration_create',
+        'view_create',
+        'view_edit',
+        'view_show',
+        'view_index',
+        'form',
+        'unit_test',
+        'functional_test',
+        'routes'
+    ];
+
     /**
      * aggregates that are containers
      * for a group of multiple config keys
-     * 
+     *
      * @var array
      */
     protected $aggregates = [
@@ -130,6 +146,20 @@ class ConfigReader implements ConfigReaderInterface
             "validator",
             "repository_interface",
             "db_repository"
+        ],
+        'crud' => [
+            'model',
+            'controller',
+            'seed',
+            'migration_create',
+            'view_create',
+            'view_edit',
+            'view_show',
+            'view_index',
+            'form',
+            'unit_test',
+            'functional_test',
+            'routes'
         ]
     ];
 
@@ -164,7 +194,7 @@ class ConfigReader implements ConfigReaderInterface
 
     /**
      * Function to validate the currently loaded config
-     * 
+     *
      * @return bool
      */
     public function validateConfig()
@@ -222,7 +252,7 @@ class ConfigReader implements ConfigReaderInterface
 
     /**
      * Function to return the loaded config type
-     * 
+     *
      * @return string
      */
     public function getConfigType()
@@ -234,9 +264,9 @@ class ConfigReader implements ConfigReaderInterface
     /**
      * Function to return the config keys
      * for an aggregate
-     * 
+     *
      * @param  string $key
-     * @return array       
+     * @return array
      */
     public function getAggregateValues($key)
     {
@@ -256,9 +286,9 @@ class ConfigReader implements ConfigReaderInterface
 
 
     /**
-     * Function to get a configuration 
+     * Function to get a configuration
      * key's values
-     * 
+     *
      * @param  string $key valid config key
      * @return array       config value for given key
      */
@@ -277,7 +307,7 @@ class ConfigReader implements ConfigReaderInterface
     /**
      * Function to get the directory where the config
      * file is contained
-     * 
+     *
      * @return string
      */
     public function getConfigDirectory()
